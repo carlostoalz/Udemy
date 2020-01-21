@@ -1,0 +1,68 @@
+<h4>Formularios <small>template</small></h4>
+<hr />
+<form (ngSubmit)="guardar( forma )" #forma="ngForm" novalidate class="needs-validation">
+    <div>
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Nombre</label>
+            <div class="col-8">
+                <input [(ngModel)]="usuario.nombre" #nombre="ngModel" name="nombre" minlength="5" class="form-control" [ngClass]="{ 'is-invalid' : (nombre.errors?.required || nombre.errors?.minlength) && nombre.touched, 'is-valid' : nombre.valid }" type="text" placeholder="Nombre"
+                    required/>
+            </div>
+            <div *ngIf="nombre.errors && nombre.errors?.required" class="invalid-feedback">Este campo es requerido.</div>
+            <div *ngIf="nombre.errors && nombre.touched && nombre.errors?.minlength" class="invalid-feedback">Por lo menos {{nombre.errors.minlength.requiredLength}} carateres.</div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Apellido</label>
+            <div class="col-8">
+                <input [(ngModel)]="usuario.apellido" #apellido="ngModel" name="apellido" class="form-control" [ngClass]="{ 'is-invalid' : apellido.errors?.required && apellido.touched, 'is-valid' : apellido.valid }" type="text" placeholder="Apellido" required />
+            </div>
+            <div *ngIf="apellido.errors?.required && apellido.touched" class="invalid-tooltip">Este campo es requerido.</div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Correo</label>
+        <div class="col-md-8">
+            <input [(ngModel)]="usuario.email" #email="ngModel" name="email" class="form-control" [ngClass]="{ 'is-invalid' : (email.errors?.required || email.errors?.pattern) && email.touched, 'is-valid' : email.valid }" type="email" placeholder="Correo electrónico"
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required/>
+        </div>
+        <div *ngIf="email.errors?.required && email.touched" class="invalid-tooltip">Este campo es requerido.</div>
+        <div *ngIf="email.errors?.pattern" class="invalid-tooltip">El campo no tiene el formato correcto</div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Pais</label>
+        <div class="col-md-8">
+            <select class="form-control" [ngClass]="{ 'is-invalid' : pais.errors?.required && email.touched, 'is-valid' : pais.valid }" [(ngModel)]="usuario.pais" #pais="ngModel" name="pais" required>
+                <option selected value="">--Seleccione un pais--</option>
+                <option *ngFor="let pais of paises" [value]="pais.alpha3Code">{{pais.name}}</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Genero</label>
+        <div *ngFor="let g of generos" class="custom-control custom-radio custom-control-inline">
+            <input [(ngModel)]="usuario.genero" [value]="g.sigla" type="radio" name="genero" class="custom-control-input" id="genero{{g.sigla}}">
+            <label class="custom-control-label" for="genero{{g.sigla}}">{{g.genero}}</label>
+        </div>
+    </div>
+
+    <div class="custom-control custom-checkbox">
+        <input type="checkbox" [(ngModel)]="usuario.acepta" name="acepta" class="custom-control-input" id="customCheck1" required>
+        <label class="custom-control-label" for="customCheck1">Acepta los terminos</label>
+    </div>
+
+    <div class="form-group row mt-5">
+        <label class="col-2 col-form-label">&nbsp;</label>
+        <div class="input-group col-md-8">
+            <!-- [disabled]="forma.invalid" -->
+            <button [disabled]="forma.invalid" type="submit" class="btn btn-outline-primary">Guardar</button>
+        </div>
+    </div>
+</form>
+
+<pre>
+    {{usuario | json}}
+</pre>

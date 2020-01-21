@@ -1,0 +1,19 @@
+ng new [Nombre Proyecto] --Crea un nuevo proyecto angular
+ng serve -o --levanta el proyecto en el navegador predeterminado
+ng g c [RUTA/Nombre Componente] -- crea un componente nuevo
+ng g c [RUTA/Nombre Componente] -is --crea el componente sin el archivo de estilos
+ng g c [RUTA/Nombre Componente] --skipTests=true -is /*crea el componente sin el archivo de estilos y sin archivos de prueba*/
+ng g c [RUTA/Nombre Componente] --skipTests=true -is --flat /*crea el componente sin el archivo de estilos y sin archivos de prueba y sin carpeta solo los archivos*/
+ng g c [RUTA/Nombre Componente] --skipTests=true -is/*crea el componente sin el archivo de estilos y sin spec*/
+ng g c [RUTA/Nombre Componente] --module=app.module -module crea el componente servicio pipe o lo que sea en el modulo que ese especifico
+
+NPM
+npm install bootstrap --save 
+npm install jquery --save  
+npm install popper.js --save 
+
+npm i @angular/cdk "esto se usa para virtual scroll y Drag & Drop"
+
+tsc --watch "ejecutar en firebase backend para que este escuchando los combios que se le haga al proyecto"
+
+1577159001578
