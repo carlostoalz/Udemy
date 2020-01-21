@@ -1,0 +1,18 @@
+html,
+body {
+    background-color: #1c1c1c;
+    color: white;
+}
+
+hr {
+    background-color: gray;
+}
+
+.chart-container {
+    display: grid;
+    height: 300px;
+}
+
+.card-columns {
+    column-count: 4;
+}
