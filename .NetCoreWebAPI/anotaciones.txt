@@ -1,0 +1,2 @@
+En los video 32 y 33 hay cosas interesantes como filter y lo basico para trabajar con jsonwebtokens
+en el 34 se habla sobre hilos y tareas repetitivas
