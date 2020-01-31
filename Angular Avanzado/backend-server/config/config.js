@@ -1,0 +1,1 @@
+module.exports.SEED = '@@3$7e-@3$-@un-@$33d-@D1f1c1l@@';

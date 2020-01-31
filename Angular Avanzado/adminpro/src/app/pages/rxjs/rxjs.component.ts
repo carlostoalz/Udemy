@@ -35,7 +35,7 @@ export class RxjsComponent implements OnInit, OnDestroy {
   regresaObservable(): Observable<any> {
     return new Observable<any>( (observer: Subscriber<any>) => {
       let contador: number = 0;
-      let intervalo: NodeJS.Timer = setInterval( () => {
+      let intervalo = setInterval( () => {
         contador ++;
 
         const salida = {
