@@ -3,7 +3,6 @@
 //Requires 
 var express = require('express');
 var bcrypt = require('bcryptjs');
-var jwt = require('jsonwebtoken');
 
 var Usuario = require('../models/usuario');
 var mdAutenticacion = require('../middlewares/autenticación');
@@ -13,11 +12,17 @@ var app = express();
 // ============================================
 // Obtener todos los usuarios
 // ============================================
-app.get('/', (req, res, next) => {
+app.get('/', (req, res) => {
+
+    let desde = req.query.desde || 0;
+    desde = Number(desde);
 
     Usuario.find({}, 'nombre email role img')
+        .skip(desde)
+        .limit(5)
         .exec(
             (err, usuarios) => {
+
                 if (err) {
                     return res.status(500).json({
                         ok: false,
@@ -26,13 +31,24 @@ app.get('/', (req, res, next) => {
                     });
                 }
 
-                res.status(200).json({
-                    ok: true,
-                    usuarios: usuarios
+                Usuario.count({}, (err, count) => {
+
+                    if (err) {
+                        return res.status(500).json({
+                            ok: false,
+                            mensaje: 'Error cargando usuarios',
+                            errors: err
+                        });
+                    }
+
+                    res.status(200).json({
+                        ok: true,
+                        usuarios: usuarios,
+                        total: count
+                    });
                 });
             });
 });
-
 
 // ============================================
 // Crear un nuevo usuario
