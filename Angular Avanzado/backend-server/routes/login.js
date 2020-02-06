@@ -75,7 +75,7 @@ app.post('/google', async(req, res) => {
                     ok: true,
                     usuario: usuarioDB,
                     token: token,
-                    id: ususarioDB['_id']
+                    id: usuarioDB['_id']
                 });
             }
 
@@ -83,7 +83,7 @@ app.post('/google', async(req, res) => {
 
             //El usuario no existe hay que crearlo
             var usuario = new Usuario();
-            usuario.nombre = googleUser.name;
+            usuario.nombre = googleUser.nombre;
             usuario.email = googleUser.email;
             usuario.img = googleUser.img;
             usuario.google = true;
@@ -94,7 +94,7 @@ app.post('/google', async(req, res) => {
                 if (err) {
                     return res.status(500).json({
                         ok: false,
-                        mensaje: 'Error al buscar usuario',
+                        mensaje: 'Error al guardar usuario',
                         errors: err
                     });
                 }

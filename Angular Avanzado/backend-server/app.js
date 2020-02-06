@@ -2,6 +2,7 @@
 
 //Requires 
 var express = require('express');
+var cors = require('cors')
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var serveIndex = require('serve-index');
@@ -18,6 +19,15 @@ var imagenesRoutes = require('./routes/imagenes');
 
 //Inicializar variables
 var app = express();
+
+//CORS
+// app.use(function(req, res, next) {
+//     header.Add("Access-Control-Allow-Origin", "*")
+//     header.Add("Access-Control-Allow-Methods", "DELETE, POST, GET, OPTIONS")
+//     header.Add("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With")
+//     next();
+// });
+app.use(cors());
 
 //Body Parser
 app.use(bodyParser.urlencoded({ extended: false }));
