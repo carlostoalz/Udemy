@@ -80,7 +80,7 @@ export class RegisterComponent implements OnInit {
     );
     
 
-    this._us.postQuery('usuario', usuario)
+    this._us.post('usuario', usuario)
     .subscribe( 
       resp => this.router.navigate(['/login']),
       err => this.swal.Error(err.message)

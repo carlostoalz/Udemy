@@ -1,11 +1,11 @@
 import { Observable } from 'rxjs';
 
 export interface IServiceCRUD<T> {
-    getQuery( query:string ) : Observable<any>;
+    get( query: string ) : Observable<any>;
 
-    postQuery( query: string, value: T, token?: string ) : Observable<any>;
+    post( query: string, value: T ) : Observable<any>;
 
-    putQuery( query: string, value: T, token: string ) : Observable<any>;
+    put( query: string, value: T ) : Observable<any>;
 
-    deleteQuery( query: string, token: string ) : Observable<any>;
+    delete( query: string ) : Observable<any>;
 }

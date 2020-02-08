@@ -27,6 +27,26 @@ export class SwalUtil {
         });
     }
 
+    Errors( ex: any ) {
+        
+        let err: string = "";
+
+        if ( ex.error.mensaje )  {
+            err += ex.error.mensaje + '\n';
+            if ( ex.error.errors.message ) {
+                err += ex.error.errors.message + '\n';
+            }
+        } else {
+            err = ex.message;
+        }        
+
+        Swal.fire({
+            title: 'Error',
+            text: err,
+            icon: "error"
+        });
+    }
+
     Pregunta(pregunta: string, texto) : Promise<SweetAlertResult>{
         return Swal.fire({
             title: pregunta,

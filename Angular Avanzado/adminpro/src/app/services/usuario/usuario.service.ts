@@ -7,6 +7,7 @@ import { IServiceCRUD } from 'src/app/interfaces/IServiceCRUD';
 import { URL_SERVICIOS } from "../../config/config";
 import { SwalUtil } from '../../utils/swal.util';
 import { Router } from '@angular/router';
+import { SubirArchivoService } from '../subir-archivo/subir-archivo.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +20,9 @@ export class UsuarioService implements IServiceCRUD<Usuario> {
   token: string; 
   
   constructor( 
-    public http: HttpClient ,
-    public router: Router
+    public http: HttpClient,
+    public router: Router,
+    public _sa: SubirArchivoService
   ) { 
     this.cargarStorage();
   }
@@ -105,18 +107,18 @@ export class UsuarioService implements IServiceCRUD<Usuario> {
     
   }
   
-  getQuery(query: string): Observable<any> {
+  get(query: string): Observable<any> {
 
     return this.http.get( `${ URL_SERVICIOS }/${ query }` );
 
   }
 
-  postQuery(query: string, value: Usuario, token?: string): Observable<any> {
+  post(query: string, value: Usuario ): Observable<any> {
 
     let url: string = "";
 
-    if (token) {
-      url = `${ URL_SERVICIOS }/${ query }?token=${ token }`;
+    if (this.token) {
+      url = `${ URL_SERVICIOS }/${ query }?token=${ this.token }`;
     } else {
       url = `${ URL_SERVICIOS }/${ query }`;
     }
@@ -131,15 +133,41 @@ export class UsuarioService implements IServiceCRUD<Usuario> {
 
   }
 
-  putQuery(query: string, value: Usuario, token: string): Observable<any> {
+  put( query: string, value: Usuario ): Observable<any> {
     
-    return this.http.put( `${ URL_SERVICIOS }/${ query }?token=${ token }`, value );
+    return this.http.put( `${ URL_SERVICIOS }${ query }?token=${ this.token }`, value )
+    .pipe(
+      map( (resp: any) =>  {
+
+        this.swal.Exitoso('Usuario Actualizado', value.nombre);
+        this.guardarStoage( resp.usuario._id, this.token, resp.usuario );
+
+        return true;
+      })
+    );
 
   }
 
-  deleteQuery(query: string, token: string): Observable<any> {
+  delete(query: string ): Observable<any> {
     
-    return this.http.delete( `${ URL_SERVICIOS }/${ query }?token=${ token }` );
+    return this.http.delete( `${ URL_SERVICIOS }/${ query }?token=${ this.token }` );
+
+  }
+
+  cambiarImagen ( archivo: File, id: string ) {
+
+    this._sa.subirArchivo( archivo, 'usuarios', id )
+    .then( (resp: any) => {
+
+      console.log(resp);
+
+      this.usuario.img = (<Usuario>resp.usuario).img;
+      this.swal.Exitoso('OK!', resp.mensaje);
+
+      this.guardarStoage( id, this.token, this.usuario );
+
+    })
+    .catch( err => this.swal.Errors( err ));
 
   }
 }
