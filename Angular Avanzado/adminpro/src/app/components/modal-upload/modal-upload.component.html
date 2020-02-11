@@ -1,0 +1,26 @@
+<div class="fondo-negro animated fadeIn" [ngClass]="_mu.oculto">
+    <div class="modal" style="display: block;" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+                    <button (click)="cerrarModal()" type="button" class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+                </div>
+                <div class="modal-body">
+
+                    <img *ngIf="!imagenTemp" [src]="'xxx' | imagen" class="w-100 m-b-10">
+                    <img *ngIf="imagenTemp" [src]="imagenTemp" class="w-100 m-b-10">
+
+                    <input (change)="seleccionImagen( $event.target.files[0] )" type="file">
+
+                </div>
+                <div class="modal-footer">
+                    <button (click)="subirImagen()" [disabled]="!imagenTemp" type="button" class="btn btn-primary">Subir imagen</button>
+                    <button (click)="cerrarModal()" type="button" class="btn btn-secondary">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -139,8 +139,10 @@ export class UsuarioService implements IServiceCRUD<Usuario> {
     .pipe(
       map( (resp: any) =>  {
 
+        if ( value._id === this.usuario._id ) {
+          this.guardarStoage( resp.usuario._id, this.token, resp.usuario );          
+        }
         this.swal.Exitoso('Usuario Actualizado', value.nombre);
-        this.guardarStoage( resp.usuario._id, this.token, resp.usuario );
 
         return true;
       })
@@ -150,7 +152,15 @@ export class UsuarioService implements IServiceCRUD<Usuario> {
 
   delete(query: string ): Observable<any> {
     
-    return this.http.delete( `${ URL_SERVICIOS }/${ query }?token=${ this.token }` );
+    return this.http.delete( `${ URL_SERVICIOS }/${ query }?token=${ this.token }` )
+            .pipe(
+              map( resp => {
+
+                this.swal.Exitoso('OK!', 'Usuario Borrado');
+                return true;
+
+              })
+            );
 
   }
 

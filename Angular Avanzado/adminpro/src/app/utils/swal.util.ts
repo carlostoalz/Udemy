@@ -31,14 +31,19 @@ export class SwalUtil {
         
         let err: string = "";
 
-        if ( ex.error.mensaje )  {
-            err += ex.error.mensaje + '\n';
-            if ( ex.error.errors.message ) {
-                err += ex.error.errors.message + '\n';
-            }
+        if ( ex.error ) {            
+            if ( ex.error.mensaje )  {
+                err += ex.error.mensaje + '\n';
+                if ( ex.error.errors.message ) {
+                    err += ex.error.errors.message + '\n';
+                }
+            } else {
+                err = ex.message;
+            }        
         } else {
             err = ex.message;
-        }        
+        }
+
 
         Swal.fire({
             title: 'Error',
@@ -47,7 +52,7 @@ export class SwalUtil {
         });
     }
 
-    Pregunta(pregunta: string, texto) : Promise<SweetAlertResult>{
+    Pregunta(pregunta: string, texto: string) : Promise<SweetAlertResult>{
         return Swal.fire({
             title: pregunta,
             text: texto,
