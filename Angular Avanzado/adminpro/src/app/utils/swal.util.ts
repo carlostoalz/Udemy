@@ -69,4 +69,16 @@ export class SwalUtil {
             icon: 'success'
         });
     }
+
+    InputText( titulo: string, text: string ) {
+        
+        return Swal.fire({
+            title: titulo,
+            text: text,
+            icon: 'info',
+            input: 'text',
+            showCancelButton: true,
+        });
+
+    }
 }

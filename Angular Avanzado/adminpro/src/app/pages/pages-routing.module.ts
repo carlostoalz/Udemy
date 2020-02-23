@@ -8,10 +8,13 @@ import { Graficas1Component } from './graficas1/graficas1.component';
 import { NopagefoundComponent } from '../shared/nopagefound/nopagefound.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { PromesasComponent } from './promesas/promesas.component';
-import { RxjsComponent } from './rxjs/rxjs.component';
-import { LoginGuardGuard } from '../services/service.index';
 import { ProfileComponent } from './profile/profile.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
+import { HospitalComponent } from './hospital/hospital.component';
+import { MedicosComponent } from './medicos/medicos.component';
+import { MedicoComponent } from './medicos/medico.component';
+import { RxjsComponent } from './rxjs/rxjs.component';
+import { LoginGuardGuard } from '../services/service.index';
 
 const routes: Routes = [
     { 
@@ -28,6 +31,9 @@ const routes: Routes = [
           { path: 'perfil', component: ProfileComponent, data: { titulo: 'Perfil de usuario' } },
           // Mantenimientos
           { path: 'usuarios', component: UsuariosComponent, data: { titulo: 'Mantenimiento Usuarios' } },
+          { path: 'hospitales', component: HospitalComponent, data: { titulo: 'Mantenimiento Hospitales' } },
+          { path: 'medicos', component: MedicosComponent, data: { titulo: 'Mantenimiento Médicos' } },
+          { path: 'medico/:id', component: MedicoComponent, data: { titulo: 'Actualizar Médico' } },
           { path: '', pathMatch: 'full', redirectTo: 'dashboard' }
         ]
     },

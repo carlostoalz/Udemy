@@ -112,7 +112,7 @@ export class UsuariosComponent implements OnInit {
 
     this._us.put( `/usuario/${ usuario._id }`, usuario )
     .subscribe(
-      resp => resp,
+      () => {},
       err => this.swal.Errors( err )
     );
 

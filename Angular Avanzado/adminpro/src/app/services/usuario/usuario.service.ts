@@ -113,6 +113,10 @@ export class UsuarioService implements IServiceCRUD<Usuario> {
 
   }
 
+  getOne(query: string): Observable<any> {
+    throw new Error("Method not implemented.");
+  }
+
   post(query: string, value: Usuario ): Observable<any> {
 
     let url: string = "";
