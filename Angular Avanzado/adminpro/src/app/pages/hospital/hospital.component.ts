@@ -27,8 +27,7 @@ export class HospitalComponent implements OnInit {
 
     this._ms.notification
     .subscribe(
-      () => this.cargarHospitales(),
-      err => this.swal.Errors( err )
+      () => this.cargarHospitales()
     );
 
   }
@@ -42,8 +41,7 @@ export class HospitalComponent implements OnInit {
       hospitales => {
         this.hospitales = hospitales;
         this.cargando = false;
-      },
-      err => this.swal.Errors( err )
+      }
     );
 
   }
@@ -62,8 +60,7 @@ export class HospitalComponent implements OnInit {
       ( hospitales: any ) => {
         this.hospitales = hospitales;
         this.cargando = false;
-      },
-      err => this.swal.Errors( err )
+      }
     );
 
   }
@@ -86,8 +83,7 @@ export class HospitalComponent implements OnInit {
 
       this._hs.post( `hospital`, new Hospital( sar.value ) )
       .subscribe(
-        () => this.cargarHospitales(),
-        err => this.swal.Errors( err )
+        () => this.cargarHospitales()
       );
 
     });
@@ -97,10 +93,7 @@ export class HospitalComponent implements OnInit {
   guardarHospital( hospital: Hospital ) {
 
     this._hs.put( `/hospital/${ hospital._id }`, hospital )
-    .subscribe(
-      () => {},
-      err => this.swal.Errors( err )
-    );
+    .subscribe();
 
   }
 
@@ -113,15 +106,12 @@ export class HospitalComponent implements OnInit {
 
         this._hs.delete( `hospital/${ hospital._id }` )
         .subscribe(
-          ( borrado: boolean ) => this.cargarHospitales(),
-          err => this.swal.Errors( err )
+          ( borrado: boolean ) => this.cargarHospitales()
         );
 
       }
 
     });
-
-    this._hs.delete( `` )
 
   }
 

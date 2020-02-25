@@ -38,11 +38,7 @@ export class ProfileComponent implements OnInit {
       this.usuario.email = usuario.email;
     }
 
-    this._us.put( `/usuario/${ this.usuario._id }`, usuario )
-    .subscribe(
-      res => res,
-      err => this.swal.Errors( err )
-    );
+    this._us.put( `/usuario/${ this.usuario._id }`, usuario ).subscribe( res => res );
     
   }
 

@@ -45,8 +45,7 @@ export class UsuariosComponent implements OnInit {
         this.usuarios = resp.usuarios;
         this.cargando = false;
 
-      },
-      err => this.swal.Errors(err)
+      }
     );
 
   }
@@ -78,8 +77,7 @@ export class UsuariosComponent implements OnInit {
       (resp: any) => {
         this.usuarios = resp.usuarios;
         this.cargando = false;
-      },
-      err => this.swal.Errors(err)
+      }
     );
 
   }
@@ -98,8 +96,7 @@ export class UsuariosComponent implements OnInit {
 
         this._us.delete( `usuario/${ usuario._id }` )
         .subscribe(
-          ( borrado: boolean) => this.cargarUsuarios(),
-          err => this.swal.Errors( err )
+          ( borrado: boolean) => this.cargarUsuarios()
         );
 
       }
@@ -109,13 +106,7 @@ export class UsuariosComponent implements OnInit {
   }
 
   guardarUsuario( usuario: Usuario ) {
-
-    this._us.put( `/usuario/${ usuario._id }`, usuario )
-    .subscribe(
-      () => {},
-      err => this.swal.Errors( err )
-    );
-
+    this._us.put( `/usuario/${ usuario._id }`, usuario ).subscribe();
   }
 
   mostrarModal( id: string ) {

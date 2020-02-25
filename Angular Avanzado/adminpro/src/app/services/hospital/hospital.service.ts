@@ -5,7 +5,7 @@ import { SwalUtil } from '../../utils/swal.util';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { URL_SERVICIOS } from '../../config/config';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import { UsuarioService } from '../usuario/usuario.service';
 
 @Injectable({
@@ -28,6 +28,12 @@ export class HospitalService implements IServiceCRUD<Hospital> {
       map( resp => {
         this.totalHospitales = resp['total'];
         return resp['hospitales'];
+      }),
+      catchError( err => {
+
+       this.swal.Errors( err );
+       return Observable.throw( err );
+
       })
     );
 
@@ -37,7 +43,13 @@ export class HospitalService implements IServiceCRUD<Hospital> {
     
     return this.http.get( `${ URL_SERVICIOS }/${ query }` )
     .pipe(
-      map( resp => resp['hospital'])
+      map( resp => resp['hospital']),
+      catchError( err => {
+
+       this.swal.Errors( err );
+       return Observable.throw( err );
+
+      })
     );
 
   }
@@ -49,6 +61,12 @@ export class HospitalService implements IServiceCRUD<Hospital> {
       map( resp => {
         this.swal.Exitoso( 'OK!', 'Hospital creado' );
         return resp['hospital'];
+      }),
+      catchError( err => {
+
+       this.swal.Errors( err );
+       return Observable.throw( err );
+
       })
     );
 
@@ -61,6 +79,12 @@ export class HospitalService implements IServiceCRUD<Hospital> {
       map( resp => {
         this.swal.Exitoso( 'OK!', 'Hospital actualizado' );
         return resp['hospital'];
+      }),
+      catchError( err => {
+
+       this.swal.Errors( err );
+       return Observable.throw( err );
+
       })
     );
 
@@ -70,7 +94,13 @@ export class HospitalService implements IServiceCRUD<Hospital> {
 
     return this.http.delete( `${ URL_SERVICIOS }/${ query }?token=${ this._us.token }` )
     .pipe(
-      map( resp => this.swal.Exitoso( 'OK!', 'Hospital Borrado' ) )
+      map( resp => this.swal.Exitoso( 'OK!', 'Hospital Borrado' ) ),
+      catchError( err => {
+
+       this.swal.Errors( err );
+       return Observable.throw( err );
+
+      })
     );
 
   }

@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { UsuarioService } from '../usuario/usuario.service';
 import { Observable } from "rxjs";
 import { URL_SERVICIOS } from '../../config/config';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import { SwalUtil } from '../../utils/swal.util';
 
 @Injectable({
@@ -28,6 +28,12 @@ export class MedicoService implements IServiceCRUD<Medico> {
       map( resp => {
         this.totalMedicos = resp['total'];
         return resp['medicos'];
+      }),
+      catchError( err => {
+
+       this.swal.Errors( err );
+       return Observable.throw( err );
+
       })
     );
 
@@ -36,7 +42,13 @@ export class MedicoService implements IServiceCRUD<Medico> {
     
     return this.http.get( `${ URL_SERVICIOS }/${ query }` )
     .pipe(
-      map( resp => resp['medico'])
+      map( resp => resp['medico']),
+      catchError( err => {
+
+       this.swal.Errors( err );
+       return Observable.throw( err );
+
+      })
     );
 
   }
@@ -47,6 +59,12 @@ export class MedicoService implements IServiceCRUD<Medico> {
       map( resp => {
         this.swal.Exitoso( 'OK!', 'Médico creado' );
         return resp['medico'];
+      }),
+      catchError( err => {
+
+       this.swal.Errors( err );
+       return Observable.throw( err );
+
       })
     );
 
@@ -58,6 +76,12 @@ export class MedicoService implements IServiceCRUD<Medico> {
       map( resp => {
         this.swal.Exitoso( 'OK!', 'Médico Actualizado' );
         return resp['medico'];
+      }),
+      catchError( err => {
+
+       this.swal.Errors( err );
+       return Observable.throw( err );
+
       })
     );
 
@@ -66,7 +90,13 @@ export class MedicoService implements IServiceCRUD<Medico> {
     
     return this.http.delete( `${ URL_SERVICIOS }/${ query }?token=${ this._us.token }` )
     .pipe(
-      map( () => this.swal.Exitoso( 'OK!', 'Médico Borrado' ) )
+      map( () => this.swal.Exitoso( 'OK!', 'Médico Borrado' ) ),
+      catchError( err => {
+
+       this.swal.Errors( err );
+       return Observable.throw( err );
+
+      })
     );
 
   }  

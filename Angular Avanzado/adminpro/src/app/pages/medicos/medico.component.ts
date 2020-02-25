@@ -42,8 +42,7 @@ export class MedicoComponent implements OnInit {
     this._mus.notification
     .subscribe( resp =>  {
       this.medico.img = (<Medico>resp['medico']).img;
-    },
-    err => this.swal.Errors(err))
+    })
 
   }
 
@@ -53,8 +52,7 @@ export class MedicoComponent implements OnInit {
     .subscribe( 
       hospitales => {
         this.hospitales = hospitales;
-      },
-      err => this.swal.Errors( err )
+      }
     );
 
   }
@@ -67,8 +65,7 @@ export class MedicoComponent implements OnInit {
         this.medico = medico;
         this.medico.hospital = medico['hospital']['_id'];
         this.cambioHospital( this.medico.hospital );
-      },
-      err => this.swal.Errors( err )
+      }
     );
 
   }
@@ -93,8 +90,7 @@ export class MedicoComponent implements OnInit {
       ( medico ) => {
         this.medico._id = medico._id;        
         this.router.navigate(['/medico', medico._id]);      
-      },
-      err => this.swal.Errors( err )
+      }
     );
 
   }
@@ -103,8 +99,7 @@ export class MedicoComponent implements OnInit {
 
     this._hs.getOne( `hospital/${ id }` )
     .subscribe(
-      hospital => this.hospital = hospital,
-      err => this.swal.Errors( err )
+      hospital => this.hospital = hospital
     );  
 
   }

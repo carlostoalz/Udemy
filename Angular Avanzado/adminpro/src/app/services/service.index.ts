@@ -8,6 +8,8 @@ export { SubirArchivoService } from './subir-archivo/subir-archivo.service';
 export { ModalUploadService } from './subir-archivo/modal-upload.service';
 export { HospitalService } from './hospital/hospital.service';
 export { MedicoService } from './medico/medico.service';
+export { BusquedaService } from './busqueda/busqueda.service';
 
 // Guards
 export { LoginGuardGuard } from './guards/login-guard.guard';
+export { AdminGuard } from './guards/admin.guard';

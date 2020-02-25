@@ -34,8 +34,7 @@ export class MedicosComponent implements OnInit {
       (medicos: Medico[]) => {
         this.medicos = medicos;
         this.cargando = false;
-      },
-      err => this.swal.Errors( err )
+      }
     );
   }
 
@@ -53,8 +52,7 @@ export class MedicosComponent implements OnInit {
       ( medicos: any ) => {
         this.medicos = medicos;
         this.cargando = false;
-      },
-      err => this.swal.Errors( err )
+      }
     );
 
   }
@@ -68,8 +66,7 @@ export class MedicosComponent implements OnInit {
 
         this._ms.delete( `mdeico/${ medico._id }` )
         .subscribe(
-          ( borrado: boolean ) => this.cargarMedicos(),
-          err => this.swal.Errors( err )
+          ( borrado: boolean ) => this.cargarMedicos()
         );
 
       }

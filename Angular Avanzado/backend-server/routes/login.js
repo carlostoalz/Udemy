@@ -75,7 +75,8 @@ app.post('/google', async(req, res) => {
                     ok: true,
                     usuario: usuarioDB,
                     token: token,
-                    id: usuarioDB['_id']
+                    id: usuarioDB['_id'],
+                    menu: obtenerMenu(usuarioDB.role)
                 });
             }
 
@@ -105,7 +106,8 @@ app.post('/google', async(req, res) => {
                     ok: true,
                     usuario: usuarioDB,
                     token: token,
-                    id: ususarioDB['_id']
+                    id: ususarioDB['_id'],
+                    menu: obtenerMenu(usuarioDB.role)
                 });
 
             });
@@ -124,7 +126,7 @@ app.post('/', (req, res) => {
     Usuario.findOne({
             email: body['email']
         },
-        (err, ususarioDB) => {
+        (err, usuarioDB) => {
 
             if (err) {
                 return res.status(500).json({
@@ -134,7 +136,7 @@ app.post('/', (req, res) => {
                 });
             }
 
-            if (!ususarioDB) {
+            if (!usuarioDB) {
                 return res.status(400).json({
                     ok: false,
                     mensaje: 'Credenciales incorrectas - email',
@@ -142,7 +144,7 @@ app.post('/', (req, res) => {
                 });
             }
 
-            if (!bcrypt.compareSync(body['password'], ususarioDB['password'])) {
+            if (!bcrypt.compareSync(body['password'], usuarioDB['password'])) {
                 return res.status(400).json({
                     ok: false,
                     mensaje: 'Credenciales incorrectas - password',
@@ -151,18 +153,49 @@ app.post('/', (req, res) => {
             }
 
             // Crear un token!!!
-            ususarioDB['password'] = ':)';
-            var token = jwt.sign({ usuario: ususarioDB }, SEED, { expiresIn: 14400 });
+            usuarioDB['password'] = ':)';
+            var token = jwt.sign({ usuario: usuarioDB }, SEED, { expiresIn: 14400 });
 
             res.status(200).json({
                 ok: true,
-                usuario: ususarioDB,
+                usuario: usuarioDB,
                 token: token,
-                id: ususarioDB['_id']
+                id: usuarioDB['_id'],
+                menu: obtenerMenu(usuarioDB.role)
             });
         }
     );
 });
 
+function obtenerMenu(ROLE) {
+
+    var menu = [{
+            titulo: 'Principal',
+            icono: 'mdi mdi-gauge',
+            submenu: [
+                { titulo: 'Dashboard', url: '/dashboard' },
+                { titulo: 'ProgressBar', url: '/progress' },
+                { titulo: 'Gráficas', url: '/graficas' },
+                { titulo: 'Promesas', url: '/promesas' },
+                { titulo: 'RxJs', url: '/rxjs' }
+            ]
+        },
+        {
+            titulo: 'Mantenimientos',
+            icono: 'mdi mdi-folder-lock-open',
+            submenu: [
+                { titulo: 'Hospitales', url: '/hospitales' },
+                { titulo: 'Médicos', url: '/medicos' }
+            ]
+        }
+    ];
+
+    if (ROLE === 'ADMIN_ROLE') {
+        menu[1].submenu.unshift({ titulo: 'Usuarios', url: '/usuarios' });
+    }
+
+    return menu;
+
+}
 
 module.exports = app;
