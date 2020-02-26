@@ -7,6 +7,7 @@ var jwt = require('jsonwebtoken');
 
 var Usuario = require('../models/usuario');
 var SEED = require('../config/config').SEED;
+var mdAutenticacion = require('../middlewares/autenticación');
 
 // Google
 var CLIENT_ID = require('../config/config').CLIENT_ID;
@@ -36,6 +37,20 @@ async function verify(token) {
         google: true
     };
 }
+
+// ============================================
+// Autenticación Google
+// ============================================
+app.get('/renuevaToken', mdAutenticacion.verificaToken, (req, res) => {
+
+    var token = jwt.sign({ usuario: req.usuario }, SEED, { expiresIn: 14400 });
+
+    return res.status(200).json({
+        ok: true,
+        token: token
+    });
+
+});
 
 app.post('/google', async(req, res) => {
 

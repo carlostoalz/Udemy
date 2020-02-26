@@ -28,6 +28,31 @@ export class UsuarioService implements IServiceCRUD<Usuario> {
     this.cargarStorage();
   }
 
+  renuevaToken() {
+
+    let url: string = `${ URL_SERVICIOS }/login/renuevaToken?token=${ this.token }`;
+
+    return this.http.get( url )
+    .pipe(
+      map( (resp: any) => {
+
+        this.token = resp.token;
+        localStorage.setItem( 'token', this.token );
+        
+        return true;
+
+      }),
+      catchError( err => {
+
+        this.router.navigate(['/login']);
+        this.swal.Errors( err );
+       return Observable.throw( err );
+
+      })
+    );
+
+  }
+
   estaLogueado() {
     return ( this.token.length > 5 ) ? true : false;
   }
