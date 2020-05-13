@@ -1,0 +1,3 @@
+D:\Desarrollo Software\Udemy\Patrones Solid\SolidPatterns\25.Statte\bin\Debug\netcoreapp3.1\25.Statte.exe
+D:\Desarrollo Software\Udemy\Patrones Solid\SolidPatterns\25.Statte\obj\Debug\netcoreapp3.1\25.Statte.AssemblyInfoInputs.cache
+D:\Desarrollo Software\Udemy\Patrones Solid\SolidPatterns\25.Statte\obj\Debug\netcoreapp3.1\25.Statte.AssemblyInfo.cs

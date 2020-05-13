@@ -1,0 +1,3 @@
+D:\Desarrollo Software\Udemy\Patrones Solid\SolidPatterns\24.Observer\bin\Debug\netcoreapp3.1\24.Observer.exe
+D:\Desarrollo Software\Udemy\Patrones Solid\SolidPatterns\24.Observer\obj\Debug\netcoreapp3.1\24.Observer.AssemblyInfoInputs.cache
+D:\Desarrollo Software\Udemy\Patrones Solid\SolidPatterns\24.Observer\obj\Debug\netcoreapp3.1\24.Observer.AssemblyInfo.cs
