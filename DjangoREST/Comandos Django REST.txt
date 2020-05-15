@@ -1,0 +1,23 @@
+--Create project and aplication
+
+pip install djangorestframework
+
+django-admin startproject MyProject
+
+cd MyProject
+
+python manage.py migrate
+
+python manage.py runserver
+
+python manage.py startapp api_basic 
+
+python manage.py createsuperuser
+
+--Modificar el settings.py para instalar rest framework
+
+agregar en el apartado INSTALLED_APPS esta linea 'rest_framework'
+
+--Crear migraciones con los modelos creados
+
+python manage.py makemigrations 
