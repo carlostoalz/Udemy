@@ -19,5 +19,26 @@ python manage.py createsuperuser
 agregar en el apartado INSTALLED_APPS esta linea 'rest_framework'
 
 --Crear migraciones con los modelos creados
+python manage.py makemigrations ASService
 
-python manage.py makemigrations 
+python manage.py migrate --fake ASService zero
+
+--virtual env
+python -m venv env
+
+--Dependencias
+pip3 install wheel
+pip3 install djangorestframework
+pip3 install pymongo
+pip install django-cors-headers
+
+--Djongo
+python -m pip install djongo
+
+
+---------Flask
+virtualenv venv
+
+pip install flask pymongo
+
+pip install flask-pymongo

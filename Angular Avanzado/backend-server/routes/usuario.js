@@ -13,7 +13,6 @@ var app = express();
 // Obtener todos los usuarios
 // ============================================
 app.get('/', (req, res) => {
-
     let desde = req.query.desde || 0;
     desde = Number(desde);
 

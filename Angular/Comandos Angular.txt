@@ -15,5 +15,3 @@ npm install popper.js --save
 npm i @angular/cdk "esto se usa para virtual scroll y Drag & Drop"
 
 tsc --watch "ejecutar en firebase backend para que este escuchando los combios que se le haga al proyecto"
-
-1577159001578

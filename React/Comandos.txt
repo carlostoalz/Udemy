@@ -1,0 +1,18 @@
+--Crear una nueva aplicación
+npx create-react-app my-app --folder-name
+npx create-react-app citas --template typescript --folder-name
+
+--Para typrScript
+npm install --save typescript @types/node @types/react @types/react-dom @types/jest
+
+--animaciones
+npm i react-transition-group
+npm i @types/react-transition-group
+
+--varios
+npm i @emotion/core @emotion/styled --StyledComponents
+npm i axios --Peticiones
+
+--Rutas
+npm i @types/react-router-dom
+npm i react-router-dom
