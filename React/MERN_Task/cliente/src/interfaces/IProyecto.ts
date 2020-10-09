@@ -1,4 +1,4 @@
 export interface IProyecto {
-    id: string;
+    _id: string;
     nombre: string;
 }

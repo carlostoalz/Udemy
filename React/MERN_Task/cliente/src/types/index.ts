@@ -5,16 +5,17 @@ export const AGREGAR_PROYECTO:string = "AGREGAR_PROYECTO";
 export const VALIDAR_FORMULARIO:string = "VALIDAR_FORMULARIO";
 export const PROYECTO_ACTUAL:string = "PROYECTO_ACTUAL";
 export const ELIMINAR_PROYECTO:string = "ELIMINAR_PROYECTO";
+export const PROYECTO_ERROR:string = "PROYECTO_ERROR";
 
 // Tareas
 export const TAREAS_PROYECTO:string = "TAREAS_PROYECTO";
 export const AGREGAR_TAREA:string = "AGREGAR_TAREA";
 export const VALIDAR_TAREA:string = "VALIDAR_TAREA";
 export const ELIMINAR_TAREA:string = "ELIMINAR_TAREA";
-export const ESTADO_TAREA:string = "ESTADO_TAREA";
 export const TAREA_ACTUAL:string = "TAREA_ACTUAL";
 export const ACTUALIZAR_TAREA:string = "ACTUALIZAR_TAREA";
 export const LIMPIAR_TAREA:string = "LIMPIAR_TAREA";
+export const TAREA_ERROR:string = "TAREA_ERROR";
 
 // Alertas
 export const MOSTRAR_ALERTA:string = "MOSTRAR_ALERTA";

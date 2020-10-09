@@ -29,7 +29,7 @@ const Tareas = () => {
                         <TransitionGroup>
                             {tareasproyecto.map((tarea) => (
                                 <CSSTransition
-                                    key={tarea.id}
+                                    key={tarea._id}
                                     timeout={200}
                                     classNames="tarea"
                                 >
@@ -44,7 +44,7 @@ const Tareas = () => {
             <button
                 type="button"
                 className="btn btn-eliminar"
-                onClick={() => eliminarProyecto(proyecto.id)}
+                onClick={() => eliminarProyecto(proyecto._id)}
             >Eliminar Proyecto &times;</button>
         </Fragment>
     );

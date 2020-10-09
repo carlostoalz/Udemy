@@ -6,6 +6,9 @@ export interface IAuthContext {
     autenticado: any;
     usuario: any;
     mensaje: string;
+    cargando: boolean;
     registrarUsuario: (datos: INuevaCuenta) => Promise<void>;
     iniciarSesion: (datos: ILogin) => Promise<void>;
+    usuarioAutenticado: () => Promise<void>;
+    cerrarSesión: () => void;
 }

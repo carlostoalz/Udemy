@@ -5,7 +5,6 @@ import { ILogin } from '../interfaces/ILogin';
 
 export const crearUsuario = async (datos: IUsuario) => {
     const respuesta = await clienteAxios.post('/api/usuarios', datos);
-    console.log(respuesta.data);
     return respuesta.data;
 };
 
@@ -17,14 +16,13 @@ export const obtenerUsuario = async () => {
     }
 
     const respuesta = await clienteAxios.get('/api/auth');
-    console.log(respuesta);
     return respuesta.data;
 };
 
 export const loginUsuario = async (datos: ILogin) => {
 
     const respuesta = await clienteAxios.post('/api/auth', datos);
-    console.log(respuesta);
+
     return respuesta.data;
 
 };

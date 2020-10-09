@@ -1,26 +1,21 @@
 import React, { useReducer } from 'react';
-import uuid from 'uuid';
 import TareaContext from './tareaContext';
 import TareaReducer from './tareaReducer';
 import { ITareaState } from '../../interfaces/ITareaState';
 import { ITareaAction } from '../../interfaces/ITareaAction';
 import { ITarea } from '../../interfaces/ITarea';
-import { TAREAS_PROYECTO, AGREGAR_TAREA, VALIDAR_TAREA, ELIMINAR_TAREA, ESTADO_TAREA, TAREA_ACTUAL, ACTUALIZAR_TAREA, LIMPIAR_TAREA } from '../../types/index';
+import { TAREAS_PROYECTO, AGREGAR_TAREA, VALIDAR_TAREA, ELIMINAR_TAREA, TAREA_ACTUAL, ACTUALIZAR_TAREA, LIMPIAR_TAREA, TAREA_ERROR } from '../../types/index';
+import { IResultado } from '../../interfaces/IResultado';
+import { ActualizarTarea, AgregarTarea, EliminarTarea, ObtenerTareas } from '../../services/tarea.service';
+import { handleError } from '../../common/handleError';
 
 const TareaState = (props: any) => {
 
     const initialState: ITareaState = {
-        tareas: [
-            { id:'1',nombre: 'Elegir Plataforma', estado: true, proyectoId: "1" },
-            { id:'2',nombre: 'Elegir Plataformas de pago', estado: false, proyectoId: "1" },
-            { id:'3',nombre: 'Elegir Hosting', estado: true, proyectoId: "2" },
-            { id:'4',nombre: 'Elegir Plataforma', estado: true, proyectoId: "2" },
-            { id:'5',nombre: 'Elegir Plataformas de pago', estado: false, proyectoId: "3" },
-            { id:'6',nombre: 'Elegir Hosting', estado: true, proyectoId: "3" }
-        ],
         tareasproyecto: [],
         errortarea: false,
-        tareaseleccionada: null
+        tareaseleccionada: null,
+        mensaje: null
     };
 
     // Dispatch para ejecutar las acciones
@@ -29,20 +24,37 @@ const TareaState = (props: any) => {
     // Crear las funciones
 
     //obtener las tareas de un proyecto
-    const obtenerTareas = (proyectoId: string) => {
-        dispatch({
-            type: TAREAS_PROYECTO,
-            payload: proyectoId
-        })
+    const obtenerTareas = async (proyectoId: string) => {
+        try {
+
+            const resultado: IResultado<ITarea[]> = await ObtenerTareas(proyectoId);
+            if (resultado.exitoso) {
+                dispatch({
+                    type: TAREAS_PROYECTO,
+                    payload: resultado.datos
+                });                
+            }
+
+        } catch (error) {
+            handleError(error, dispatch, TAREA_ERROR);
+        }
     };
 
     // Agregar tarea al proyecto seleccionado
-    const agregarTarea = (tarea: ITarea) => {
-        tarea.id = uuid.v4();
-        dispatch({
-            type: AGREGAR_TAREA,
-            payload: tarea
-        });
+    const agregarTarea = async (tarea: ITarea) => {
+
+        try {
+            const resultado: IResultado<ITarea> = await AgregarTarea(tarea);
+            if (resultado.exitoso) {
+                dispatch({
+                    type: AGREGAR_TAREA,
+                    payload: resultado.datos
+                });
+            }
+        } catch (error) {
+            handleError(error, dispatch, TAREA_ERROR);
+        }
+
     };
 
     // Valida y muestra un error en caso que sea nesesario
@@ -53,33 +65,46 @@ const TareaState = (props: any) => {
     };
 
     // Elimanar tarea por su id
-    const eliminarTarea = (id: string) => {
-        dispatch({
-            type: ELIMINAR_TAREA,
-            payload: id
-        });
+    const eliminarTarea = async (id: string, idProyectoActual: string) => {
+        
+        try {
+            const resultado: IResultado<null> = await EliminarTarea(id, idProyectoActual);
+
+            if (resultado.exitoso) {
+                dispatch({
+                    type: ELIMINAR_TAREA,
+                    payload: id
+                });
+            }
+        } catch (error) {
+            handleError(error, dispatch, TAREA_ERROR);
+        }
+
     };
 
-    // Cambia el estado de cada tarea
-    const cambiarEstadoTarea = (tarea: ITarea) => {
-        dispatch({
-            type: ESTADO_TAREA,
-            payload: tarea
-        });
+    // Edita una tarea 
+    const actualizarTarea = async (tarea: ITarea) => {
+        
+        try {
+
+            const resultado: IResultado<ITarea> = await ActualizarTarea(tarea);
+            if (resultado.exitoso) {     
+                dispatch({
+                    type: ACTUALIZAR_TAREA,
+                    payload: resultado.datos
+                });
+            }
+
+        } catch (error) {
+            handleError(error, dispatch, TAREA_ERROR);
+        }
+
     };
 
     // Extrae una tarea para edición
     const guardarTareaActual = (tarea: ITarea) => {
         dispatch({
             type: TAREA_ACTUAL,
-            payload: tarea
-        });
-    };
-
-    // Edita o modifica una tarea 
-    const actualizarTarea = (tarea: ITarea) => {
-        dispatch({
-            type: ACTUALIZAR_TAREA,
             payload: tarea
         });
     };
@@ -94,15 +119,14 @@ const TareaState = (props: any) => {
     return (
         <TareaContext.Provider
             value={{
-                tareas: state.tareas,
                 tareasproyecto: state.tareasproyecto,
                 tareaseleccionada: state.tareaseleccionada,
                 errortarea: state.errortarea,
+                mensaje: state.mensaje,
                 obtenerTareas,
                 agregarTarea,
                 validarTarea,
                 eliminarTarea,
-                cambiarEstadoTarea,
                 guardarTareaActual,
                 actualizarTarea,
                 limpiarTarea

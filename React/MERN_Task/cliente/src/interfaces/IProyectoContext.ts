@@ -5,6 +5,7 @@ export interface IProyectoContext {
     formulario: boolean;
     errorFormulario: boolean;
     proyecto: IProyecto | null;
+    mensaje?: any;
     mostrarFormulario: () => void;
     obtenerProyectos: () => void;
     agregarProyecto: (proyecto: IProyecto) => void;

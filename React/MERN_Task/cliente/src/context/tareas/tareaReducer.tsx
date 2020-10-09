@@ -1,6 +1,6 @@
 import { ITareaState } from '../../interfaces/ITareaState';
 import { ITareaAction } from '../../interfaces/ITareaAction';
-import { TAREAS_PROYECTO, AGREGAR_TAREA, VALIDAR_TAREA, ELIMINAR_TAREA, ESTADO_TAREA, TAREA_ACTUAL, ACTUALIZAR_TAREA, LIMPIAR_TAREA } from '../../types/index';
+import { TAREAS_PROYECTO, AGREGAR_TAREA, VALIDAR_TAREA, ELIMINAR_TAREA, TAREA_ACTUAL, ACTUALIZAR_TAREA, LIMPIAR_TAREA, TAREA_ERROR } from '../../types/index';
 import { ITarea } from '../../interfaces/ITarea';
 
 export default (state: ITareaState, action: ITareaAction) => {
@@ -10,12 +10,12 @@ export default (state: ITareaState, action: ITareaAction) => {
         case TAREAS_PROYECTO:
             return {
                 ...state,
-                tareasproyecto: state.tareas.filter(tarea => tarea.proyectoId === action.payload)
+                tareasproyecto: action.payload
             };
         case AGREGAR_TAREA:
             return {
                 ...state,
-                tareas: [((action.payload) as ITarea) ,...state.tareas],
+                tareasproyecto: [((action.payload) as ITarea) ,...state.tareasproyecto],
                 errortarea: false
             };
         case VALIDAR_TAREA:
@@ -26,13 +26,12 @@ export default (state: ITareaState, action: ITareaAction) => {
         case ELIMINAR_TAREA:
             return {
                 ...state,
-                tareas: state.tareas.filter(tarea => tarea.proyectoId !== action.payload)
+                tareasproyecto: state.tareasproyecto.filter(tarea => tarea._id !== action.payload)
             };
         case ACTUALIZAR_TAREA:
-        case ESTADO_TAREA:
             return {
                 ...state,
-                tareas: state.tareas.map( tarea => tarea.id === action.payload.id ? action.payload : tarea )
+                tareasproyecto: state.tareasproyecto.map( tarea => tarea._id === action.payload._id ? action.payload : tarea )
             };
         case TAREA_ACTUAL:
             return {
@@ -43,6 +42,11 @@ export default (state: ITareaState, action: ITareaAction) => {
             return {
                 ...state,
                 tareaseleccionada: null
+            };
+        case TAREA_ERROR:
+            return {
+                ...state,
+                mensaje: action.payload
             };
         default:
             return state;

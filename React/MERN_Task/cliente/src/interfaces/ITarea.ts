@@ -1,6 +1,6 @@
 export interface ITarea {
-    id: string;
+    _id: string;
     nombre: string;
     estado: boolean;
-    proyectoId: string;
+    proyecto: string;
 }

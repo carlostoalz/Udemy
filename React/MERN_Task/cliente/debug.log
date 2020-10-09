@@ -30,3 +30,26 @@
 [1008/120753.647:ERROR:crash_report_database_win.cc(428)] unexpected header
 [1008/122253.648:ERROR:crash_report_database_win.cc(428)] unexpected header
 [1008/123753.648:ERROR:crash_report_database_win.cc(428)] unexpected header
+[1008/125253.649:ERROR:crash_report_database_win.cc(428)] unexpected header
+[1008/130753.694:ERROR:crash_report_database_win.cc(428)] unexpected header
+[1008/132253.700:ERROR:crash_report_database_win.cc(428)] unexpected header
+[1008/133753.700:ERROR:crash_report_database_win.cc(428)] unexpected header
+[1008/135253.700:ERROR:crash_report_database_win.cc(428)] unexpected header
+[1008/140753.703:ERROR:crash_report_database_win.cc(428)] unexpected header
+[1008/142253.704:ERROR:crash_report_database_win.cc(428)] unexpected header
+[1008/143753.704:ERROR:crash_report_database_win.cc(428)] unexpected header
+[1008/145253.705:ERROR:crash_report_database_win.cc(428)] unexpected header
+[1008/150753.705:ERROR:crash_report_database_win.cc(428)] unexpected header
+[1008/152253.715:ERROR:crash_report_database_win.cc(428)] unexpected header
+[1008/152700.697:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1008/153700.701:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1008/153700.713:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\carlo\AppData\Local\Google\Chrome\User Data\Crashpad\attachments\1312156f-d71c-4595-8c27-eb88b77e7914: El sistema no puede encontrar la ruta especificada. (0x3)
+[1008/153700.732:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\carlo\AppData\Local\Google\Chrome\User Data\Crashpad\attachments\77815820-395c-48ff-be10-138d505dc0bf: El sistema no puede encontrar la ruta especificada. (0x3)
+[1008/153700.741:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\carlo\AppData\Local\Google\Chrome\User Data\Crashpad\attachments\78af56fa-8508-463d-bb3b-73f975d287c0: El sistema no puede encontrar la ruta especificada. (0x3)
+[1008/153700.764:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\carlo\AppData\Local\Google\Chrome\User Data\Crashpad\attachments\8f069c05-cf9f-4a5a-b823-9ac908311dbe: El sistema no puede encontrar la ruta especificada. (0x3)
+[1008/153700.772:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\carlo\AppData\Local\Google\Chrome\User Data\Crashpad\attachments\bb90ca69-0922-4b0d-acd8-6945ac35db67: El sistema no puede encontrar la ruta especificada. (0x3)
+[1008/153700.781:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\carlo\AppData\Local\Google\Chrome\User Data\Crashpad\attachments\bd347bae-8e24-4309-9a79-bee6db17d642: El sistema no puede encontrar la ruta especificada. (0x3)
+[1008/153700.781:ERROR:directory_reader_win.cc(43)] FindFirstFile: El sistema no puede encontrar la ruta especificada. (0x3)
+[1008/153700.782:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1008/153700.782:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1008/154200.697:ERROR:crash_report_database_win.cc(457)] unexpected header

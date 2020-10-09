@@ -16,7 +16,8 @@ const AuthState = (props:any) => {
         token: localStorage.getItem('token'),
         autenticado: false,
         usuario: null,
-        mensaje: null
+        mensaje: null,
+        cargando: true
     };
 
     const [ state, dispatch ] = useReducer<(state: IAuthState, action: IAuthAction) => any>(AuthReducer, initialState);
@@ -41,7 +42,6 @@ const AuthState = (props:any) => {
                 await usuarioAutenticado();
             }
         } catch (error) {
-            console.log(error.response);
             handleError(error, dispatch, REGISTRO_ERROR);
         }
         
@@ -62,7 +62,6 @@ const AuthState = (props:any) => {
             }
 
         } catch (error) {
-            console.log(error.response);
             handleError(error, dispatch, LOGIN_ERROR);
         }
         
@@ -86,10 +85,16 @@ const AuthState = (props:any) => {
                 await usuarioAutenticado();
             }
         } catch (error) {
-            console.log(error.response);
             handleError(error, dispatch, LOGIN_ERROR);
         }
 
+    };
+
+    // Cierra la sesión del usuario
+    const cerrarSesión = () => {
+        dispatch({
+            type: CERRAR_SESION
+        });
     };
 
     return (
@@ -99,8 +104,11 @@ const AuthState = (props:any) => {
                 autenticado: state.autenticado,
                 usuario: state.usuario,
                 mensaje: state.mensaje,
+                cargando: state.cargando,
                 registrarUsuario,
-                iniciarSesion
+                iniciarSesion,
+                usuarioAutenticado,
+                cerrarSesión
             }}
         >
             {props.children}

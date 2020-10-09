@@ -12,20 +12,27 @@ export default (state:IAuthState, action: IAuthAction) => {
             return {
                 ...state,
                 autenticado: true,
-                mensaje: null
+                mensaje: null,
+                cargando: false
             };
         case OBTENER_USUARIO:
             return {
                 ...state,
-                usuario: action.payload
+                autenticado: true,
+                usuario: action.payload,
+                cargando: false
             };
+        case CERRAR_SESION:
         case LOGIN_ERROR: 
         case REGISTRO_ERROR:
             localStorage.removeItem('token');
             return {
                 ...state,
                 token: null,
-                mensaje: action.payload.msg
+                usuario: null,
+                autenticado: false,
+                mensaje: action.payload ? action.payload.msg : null,
+                cargando: false
             };
         default:
             return state;

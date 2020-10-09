@@ -1,11 +1,13 @@
 import React, { useContext, SyntheticEvent, useState, useEffect } from 'react';
 import proyectoContext from '../../context/proyectos/proyectoContext';
 import TareaContext from '../../context/tareas/tareaContext';
+import AlertaContext from '../../context/alertas/alertasContext';
 import { IProyectoContext } from '../../interfaces/IProyectoContext';
 import { ITarea } from '../../interfaces/ITarea';
 import { ITareaContext } from '../../interfaces/ITareaContext';
+import { IAlertaContext } from '../../interfaces/IAlertaContext';
 
-const FormTarea = () => {
+const FormTarea = (props: any) => {
 
     // Extraer si un proyecto esta activo
     const proyectosContext = useContext(proyectoContext) as IProyectoContext;
@@ -13,28 +15,39 @@ const FormTarea = () => {
 
     // Obtener el state de tareas
     const tareasContext = useContext(TareaContext) as ITareaContext;
-    const { tareaseleccionada, errortarea, agregarTarea, validarTarea, obtenerTareas, actualizarTarea, limpiarTarea } = tareasContext;
+    const { tareaseleccionada, errortarea, agregarTarea, validarTarea, obtenerTareas, actualizarTarea, limpiarTarea, mensaje } = tareasContext;
+
+    // Obtener el state de alertas
+    const alertaContext = useContext(AlertaContext);
+    const { alerta, mostrarAlerta } = alertaContext as IAlertaContext;
 
     // Effect que detecta si hay una tarea selecciuonada
     useEffect(() => {
+
+        // Si hay un error
+        if (mensaje) {
+            mostrarAlerta(mensaje.msg, mensaje.categoria);
+        }
+
         if(tareaseleccionada !== null) {
             guardarTarea(tareaseleccionada)
         } else {
             guardarTarea({
-                id: '',
+                _id: '',
                 estado: false,
                 nombre: '',
-                proyectoId: ''
+                proyecto: ''
             });
         }
-    }, [tareaseleccionada]);
+        // eslint-disable-next-line
+    }, [tareaseleccionada, mensaje, props.history]);
 
     // State del formulario
     const [ tarea, guardarTarea ] = useState<ITarea>({
-        id: '',
+        _id: '',
         estado: false,
         nombre: '',
-        proyectoId: ''
+        proyecto: ''
     });
 
     if(!proyecto) return null;
@@ -62,8 +75,7 @@ const FormTarea = () => {
         if(tareaseleccionada === null) {
             // Tarea nueva
             //agragar nueva tarea al state de tareas
-            wTarea.proyectoId = proyecto.id;
-            wTarea.estado = false;
+            wTarea.proyecto = proyecto._id;
             agregarTarea(wTarea);
         } else {
             // Actualizar tarea
@@ -74,19 +86,20 @@ const FormTarea = () => {
         }
 
         // Obtener y filtrar las tareas del proyecto actual
-        obtenerTareas(proyecto.id);
+        obtenerTareas(proyecto._id);
 
         // Reiniciar el form
         guardarTarea({
-            id: '',
+            _id: '',
             estado: false,
             nombre: '',
-            proyectoId: ''
+            proyecto: ''
         });
     };
 
     return (
         <div className="formulario">
+            { alerta ? ( <div className={`alerta ${alerta.categoria}`}>{alerta.msg}</div> ) : null }
             <form
                 onSubmit={onSubmit}
             >

@@ -16,6 +16,7 @@ export const crearProyecto = async (req: Request, res: Response) => {
         // Revisar si hayy errores
         const errors = validationResult(req);
         if(!errors.isEmpty()) {
+            statusCode = 400;
             throw errors.array();
         }
 

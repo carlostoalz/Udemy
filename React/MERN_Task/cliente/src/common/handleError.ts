@@ -1,6 +1,5 @@
 import { IAlerta } from '../interfaces/IAlerta';
 import { IResultado } from '../interfaces/IResultado';
-import { IAuthAction } from '../interfaces/IAuthAction';
 
 export const handleError = ( error: any, dispatch: (value: any) => void ,type: string ) => {
     
@@ -13,7 +12,7 @@ export const handleError = ( error: any, dispatch: (value: any) => void ,type: s
         if (error.response) {
             if (error.response.data) {
                 if (error.response.data.error) {
-                    alerta.msg = <string>(<IResultado<null>>error.response.data).error?.mensaje;
+                    alerta.msg = (error.response.data as IResultado<null>).error?.mensaje as string;
                 }
             }
         } else {
@@ -25,6 +24,6 @@ export const handleError = ( error: any, dispatch: (value: any) => void ,type: s
     dispatch({
         type,
         payload: alerta
-    } as IAuthAction);
+    } as any);
 
 };

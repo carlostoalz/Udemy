@@ -11,7 +11,7 @@ const NuevoProyecto = () => {
 
     // State para proyecto
     const [ proyecto, guardarProyecto ] = useState<IProyecto>({
-        id: '',
+        _id: '',
         nombre: ''
     });
 
@@ -39,7 +39,7 @@ const NuevoProyecto = () => {
 
         // Reiniciar el form
         guardarProyecto({
-            id: '',
+            _id: '',
             nombre: ''
         })
     };

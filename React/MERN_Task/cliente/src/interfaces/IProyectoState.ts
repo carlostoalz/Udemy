@@ -4,5 +4,6 @@ export interface IProyectoState {
     proyectos: IProyecto[];
     formulario: boolean
     errorFormulario: boolean;
-    proyecto: IProyecto | null
+    proyecto: IProyecto | null;
+    mensaje: any | null;
 }

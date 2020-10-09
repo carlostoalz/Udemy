@@ -25,7 +25,7 @@ const Login = (props: any) => {
         if(mensaje) {
             mostrarAlerta(mensaje,'alerta-error');
         }
-
+        // eslint-disable-next-line
     }, [mensaje, autenticado, props.history]);
 
     // State para iniciar sesión

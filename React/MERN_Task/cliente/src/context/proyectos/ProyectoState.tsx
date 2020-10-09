@@ -1,17 +1,13 @@
 import React, { useReducer } from 'react';
-import uuid from 'uuid'
 import proyectoContext from './proyectoContext';
 import proyectoReducer from './proyectoReducer';
 import { IProyectoState } from '../../interfaces/IProyectoState';
 import { IProyectoAction } from '../../interfaces/IProyectoAction';
-import { FORMULARIO_PROYECTO, OBTENER_PROYECTOS, AGREGAR_PROYECTO, VALIDAR_FORMULARIO, PROYECTO_ACTUAL, ELIMINAR_PROYECTO } from '../../types';
+import { FORMULARIO_PROYECTO, OBTENER_PROYECTOS, AGREGAR_PROYECTO, VALIDAR_FORMULARIO, PROYECTO_ACTUAL, ELIMINAR_PROYECTO, PROYECTO_ERROR } from '../../types';
 import { IProyecto } from '../../interfaces/IProyecto';
-
-const proyectos: IProyecto[] = [
-    { id: "1", nombre: 'Tienda Virtual' },
-    { id: "2", nombre: 'intranet' },
-    { id: "3", nombre: 'Diseño Sitio Web' }
-];
+import { InsertarProyecto, ObtenerProyectos, EliminarProyecto } from '../../services/proyecto.service';
+import { IResultado } from '../../interfaces/IResultado';
+import { handleError } from '../../common/handleError';
 
 const ProyectoState = (props:any) => {
 
@@ -19,7 +15,8 @@ const ProyectoState = (props:any) => {
         proyectos: [],
         formulario: false,
         errorFormulario: false,
-        proyecto: null
+        proyecto: null,
+        mensaje: null
     };
 
 
@@ -34,22 +31,40 @@ const ProyectoState = (props:any) => {
     };
 
     //Obtener los proyectos
-    const obtenerProyectos = () => {
-        dispatch({
-            type: OBTENER_PROYECTOS,
-            payload: proyectos
-        })
+    const obtenerProyectos = async () => {
+
+        try {
+
+            const resultado: IResultado<any[]> = await ObtenerProyectos();
+            if (resultado.exitoso) {
+                dispatch({
+                    type: OBTENER_PROYECTOS,
+                    payload: resultado.datos
+                });
+            }
+            
+        } catch (error) {
+            handleError(error, dispatch, PROYECTO_ERROR);
+        }
     };
 
     // Agregar nuevo proyecto
-    const agregarProyecto = (proyecto: IProyecto) => {
-        proyecto.id = uuid.v4();
+    const agregarProyecto = async (proyecto: IProyecto) => {
 
-        // Insertar el proyecto en el state
-        dispatch({
-            type: AGREGAR_PROYECTO,
-            payload: proyecto
-        });
+        try {
+            const resultado: IResultado<any> = await InsertarProyecto(proyecto);
+            if (resultado.exitoso) {
+                // proyecto.id = resultado.datos._id
+                dispatch({
+                    type: AGREGAR_PROYECTO,
+                    payload: resultado.datos
+                });
+            }
+
+            // Insertar el proyecto en el state
+        } catch (error) {
+            handleError(error, dispatch, PROYECTO_ERROR);
+        }
     };
 
     // Valida el formulario por errores
@@ -68,11 +83,20 @@ const ProyectoState = (props:any) => {
     };
 
     // Elimnina un proyecto
-    const eliminarProyecto = (proyectoid: string) => {
-        dispatch({
-            type: ELIMINAR_PROYECTO,
-            payload: proyectoid
-        });
+    const eliminarProyecto = async (proyectoid: string) => {
+
+        try {
+
+            const resultado: IResultado<null> = await EliminarProyecto(proyectoid);
+            if (resultado.exitoso) {
+                dispatch({
+                    type: ELIMINAR_PROYECTO,
+                    payload: proyectoid
+                });   
+            }
+        } catch (error) {
+            handleError(error, dispatch, PROYECTO_ERROR);
+        }
     };
 
     return (
@@ -82,6 +106,7 @@ const ProyectoState = (props:any) => {
                 formulario: state.formulario,
                 errorFormulario: state.errorFormulario,
                 proyecto: state.proyecto,
+                mensaje: state.mensaje,
                 mostrarFormulario,
                 obtenerProyectos,
                 agregarProyecto,
