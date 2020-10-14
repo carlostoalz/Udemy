@@ -16,3 +16,10 @@ npm i axios --Peticiones
 --Rutas
 npm i @types/react-router-dom
 npm i react-router-dom
+
+
+--Redux
+npm i react-redux redux redux-thunk @types/react-redux @types/redux @types/redux-thunk
+
+--Actualizar dependencias
+npm audit fix
