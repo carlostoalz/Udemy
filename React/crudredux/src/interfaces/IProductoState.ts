@@ -5,4 +5,5 @@ export interface IProductoState {
     error: boolean | null;
     loading: boolean;
     productoEliminar: number | null;
+    productoEditar: IProducto | null;
 }

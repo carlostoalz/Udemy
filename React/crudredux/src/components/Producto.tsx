@@ -1,11 +1,11 @@
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { IProducto } from '../interfaces/IProducto';
-import { eliminarProductoAction } from '../actions/productoActions';
 import { SwalUtil } from '../utils/swal.util';
 import { SweetAlertResult } from 'sweetalert2';
 // Redux
 import { useDispatch } from 'react-redux';
+import { eliminarProductoAction, obtenerProductioEditarAction } from '../actions/producto.actions';
 
 type ProductoProps = {
     producto: IProducto
@@ -34,6 +34,7 @@ const Producto = ({ producto }: ProductoProps) => {
 
     // Función que redirige de forma programada
     const redireccionarEdición = (producto: IProducto) => {
+        dispatch( obtenerProductioEditarAction(producto) );
         history.push(`/productos/editar/${producto.id}`);
     };
 
@@ -42,10 +43,11 @@ const Producto = ({ producto }: ProductoProps) => {
             <td>{ producto.nombre }</td>
             <td><span className="font-weight-bold"> $ {producto.precio}</span></td>
             <td className="acciones">
-                <Link 
-                    to={`/productos/editar/${producto.id}`} 
+                <button 
+                    type="button"
+                    onClick={ () => redireccionarEdición(producto) }
                     className="btn btn-primary mr-2"
-                >Editar</Link>
+                >Editar</button>
                 <button 
                     type="button"
                     className="btn btn-danger"

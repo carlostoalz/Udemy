@@ -7,10 +7,14 @@ import {
     DESCARGA_PRODUCTOS_ERROR,
     OBTENER_PRODUCTO_ELIMINAR,
     PRODUCTO_ELIMINAR_EXITO,
-    PRODUCTO_ELIMINAR_ERROR
+    PRODUCTO_ELIMINAR_ERROR,
+    OBTENER_PRODUCTO_EDITAR,
+    COMENZAR_EDICION_PRODUCTO,
+    PRODUCTO_EDITAR_EXITO,
+    PRODUCTO_EDITAR_ERROR
 } from "../types";
 import { IProducto } from '../interfaces/IProducto';
-import { AgregarProducto, ObtenerProductos, EliminarProducto } from '../services/producto.service';
+import { AgregarProducto, ObtenerProductos, EliminarProducto, EditarProductio as EditarProducto } from '../services/producto.service';
 import { SwalUtil } from '../utils/swal.util';
 import { IAction } from '../interfaces/IAction';
 
@@ -115,5 +119,45 @@ const eliminarProductoExito = () => ({
 
 const eliminarProductoError = (estado: boolean) => ({
     type: PRODUCTO_ELIMINAR_ERROR,
+    payload: estado
+} as IAction);
+
+// Colocar el producto en edición
+export const obtenerProductioEditarAction = (producto: IProducto) => {    
+    return (dispatch:any)  => {        
+        dispatch( obtenerProductoEditar(producto) );
+    };
+};
+
+const obtenerProductoEditar = (producto: IProducto) => ({
+    type: OBTENER_PRODUCTO_EDITAR,
+    payload: producto
+} as IAction);
+
+// Edita un registro en la API y state
+export const editarProductoAction = (producto: IProducto) => {
+    return async (dispatch: any) => {
+        dispatch(editarProoducto());
+        try {
+            await EditarProducto(producto);
+            dispatch( editarProoductoExito(producto) );
+        } catch (error) {
+            dispatch( editarProoductoError(true) );
+            swal.Errors(error);
+        }
+    };
+};
+
+const editarProoducto = () => ({
+    type: COMENZAR_EDICION_PRODUCTO
+} as IAction);
+
+const editarProoductoExito = (prodcto: IProducto) => ({
+    type: PRODUCTO_EDITAR_EXITO,
+    payload: prodcto
+} as IAction);
+
+const editarProoductoError = (estado: boolean) => ({
+    type: PRODUCTO_EDITAR_ERROR,
     payload: estado
 } as IAction);

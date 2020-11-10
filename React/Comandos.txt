@@ -1,6 +1,8 @@
 --Crear una nueva aplicación
 npx create-react-app my-app --folder-name
 npx create-react-app citas --template typescript --folder-name
+--Next
+npx create-next-app --example with-typescript producthuntnext
 
 --Para typrScript
 npm install --save typescript @types/node @types/react @types/react-dom @types/jest

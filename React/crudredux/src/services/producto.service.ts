@@ -15,4 +15,9 @@ export const ObtenerProductos = async () => {
 
 export const EliminarProducto = async (id: number) => {
     await clienteAxios.delete(`/productos/${id}`);
-}
+};
+
+export const EditarProductio = async (producto: IProducto) => {
+    const resultado = await clienteAxios.put(`/productos/${producto.id}`, producto);
+    return resultado.data;
+};

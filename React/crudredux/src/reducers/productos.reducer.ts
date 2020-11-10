@@ -7,10 +7,14 @@ import {
     DESCARGA_PRODUCTOS_ERROR,
     OBTENER_PRODUCTO_ELIMINAR,
     PRODUCTO_ELIMINAR_EXITO,
-    PRODUCTO_ELIMINAR_ERROR
+    PRODUCTO_ELIMINAR_ERROR,
+    OBTENER_PRODUCTO_EDITAR,
+    PRODUCTO_EDITAR_EXITO,
+    PRODUCTO_EDITAR_ERROR
 } from "../types";
 import { IProductoState } from '../interfaces/IProductoState';
 import { IAction } from '../interfaces/IAction';
+import { IProducto } from "../interfaces/IProducto";
 
 // Cada reducer tiene su propio state
 
@@ -18,7 +22,8 @@ const initialState: IProductoState = {
     productos: [],
     error: null,
     loading: false,
-    productoEliminar: null
+    productoEliminar: null,
+    productoEditar: null
 };
 
 export default (state: IProductoState = initialState, action: IAction) => {
@@ -39,6 +44,7 @@ export default (state: IProductoState = initialState, action: IAction) => {
         case AGREGAR_PRODUCTO_ERROR:
         case DESCARGA_PRODUCTOS_ERROR:
         case PRODUCTO_ELIMINAR_ERROR:
+        case PRODUCTO_EDITAR_ERROR:
             return {
                 ...state,
                 loading: false,
@@ -61,6 +67,17 @@ export default (state: IProductoState = initialState, action: IAction) => {
                 ...state,
                 productos: state.productos.filter( producto => producto.id !== state.productoEliminar ),
                 productoEliminar: null
+            };
+        case OBTENER_PRODUCTO_EDITAR:
+            return {
+                ...state,
+                productoEditar: action.payload
+            };
+        case PRODUCTO_EDITAR_EXITO:
+            return {
+                ...state,
+                productoEditar: null,
+                productos: state.productos.map(producto => producto.id === (action.payload as IProducto).id ? producto = action.payload : producto)
             };
         default:
             return state;

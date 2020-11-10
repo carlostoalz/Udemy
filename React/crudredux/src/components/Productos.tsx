@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from 'react';
-import { obtenerProductosAction } from '../actions/productoActions';
+import { obtenerProductosAction } from '../actions/producto.actions';
 // Redux
 import { useSelector, useDispatch } from 'react-redux';
 import { IProductoState } from '../interfaces/IProductoState';
@@ -14,7 +14,7 @@ const Productos = () => {
         // Consultar la API
         const cargarProductos = () => dispatch( obtenerProductosAction() );
         cargarProductos();
-
+        // eslint-disable-next-line
     }, []);
 
     // obtener el state
