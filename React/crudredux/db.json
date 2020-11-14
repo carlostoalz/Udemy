@@ -1,11 +1,6 @@
 {
   "productos": [
     {
-      "nombre": "Rib Eye",
-      "precio": 800,
-      "id": 6
-    },
-    {
       "nombre": "Play Station 5",
       "precio": 500,
       "id": 7

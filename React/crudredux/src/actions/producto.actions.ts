@@ -17,6 +17,7 @@ import { IProducto } from '../interfaces/IProducto';
 import { AgregarProducto, ObtenerProductos, EliminarProducto, EditarProductio as EditarProducto } from '../services/producto.service';
 import { SwalUtil } from '../utils/swal.util';
 import { IAction } from '../interfaces/IAction';
+import { Dispatch } from 'redux';
 
 const swal: SwalUtil = new SwalUtil();
 
@@ -60,7 +61,7 @@ const agregarProductoError = (estado: boolean) => ({
 // Función que descarga los productos de la base de datos
 export const obtenerProductosAction = () => {
     
-    return async (dispatch: any) => {
+    return async (dispatch: Dispatch) => {
         dispatch( descargarProductos() );
 
         try {
@@ -92,7 +93,7 @@ const descargarProductosError = (estado: boolean) => ({
 // Selecciona y elimina el producto
 export const eliminarProductoAction = (id: number) => {
 
-    return async (dispatch:any) => {
+    return async (dispatch: Dispatch) => {
         
         dispatch( obtenerProductoEliminar(id) );
 
@@ -136,7 +137,7 @@ const obtenerProductoEditar = (producto: IProducto) => ({
 
 // Edita un registro en la API y state
 export const editarProductoAction = (producto: IProducto) => {
-    return async (dispatch: any) => {
+    return async (dispatch: Dispatch) => {
         dispatch(editarProoducto());
         try {
             await EditarProducto(producto);
