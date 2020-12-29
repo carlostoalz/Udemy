@@ -1,9 +1,14 @@
-import React, { Props } from 'react';
+import React from 'react';
+import Header from './Header';
+import GlobalStyle from '../../style/GlobalStyle';
+import HeadComponent from './HeadComponent';
 
-const Layout = (props: Props<any>) => {
+const Layout = (props: React.PropsWithChildren<any>) => {
     return (
         <>
-            <h1>Header</h1>
+            <HeadComponent />
+            <GlobalStyle />
+            <Header />
             <main>
                 {props.children}
             </main>
