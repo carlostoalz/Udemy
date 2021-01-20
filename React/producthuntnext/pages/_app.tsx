@@ -1,4 +1,3 @@
-import App from 'next/app';
 import firebase, { FirebaseContext } from '../firebase';
 
 const MyApp = (props: React.PropsWithChildren<any>) => {
