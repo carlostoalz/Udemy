@@ -28,7 +28,7 @@ export const crearUsuario = async (req: Request, res: Response) => {
         let usuario: Document = await Usuario.findOne({ email });
 
         if (usuario) {
-            statusCode = 401;
+            statusCode = 404;
             throw new Error('El usuario ya existe');
         }
 
