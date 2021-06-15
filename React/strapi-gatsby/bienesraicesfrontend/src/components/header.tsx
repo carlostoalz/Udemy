@@ -26,7 +26,7 @@ const Header: FC = () => {
                 css={css`
                     max-width: 120rem;
                     margin: 0 auto;
-                    text-align: center;
+                    text-align: left;
 
                     @media (min-width: 768px) {
                         display: flex;
